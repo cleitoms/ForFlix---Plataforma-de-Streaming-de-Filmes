@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Falhou</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8d7da, #f3f4f8); /* Gradiente suave com tons de vermelho */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            color: #dc3545; /* Vermelho para erro */
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1s;
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #FF5733; /* Cor vibrante */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #C70039; /* Cor ao passar o mouse */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Pagamento Falhou!</h1>
+    <p>Infelizmente, seu pagamento não foi processado. Tente novamente.</p>
+    <p>Se o problema persistir, verifique suas informações de pagamento ou entre em contato com o suporte.</p>
+    <a href="/">Tente Novamente</a>
+</body>
+</html>

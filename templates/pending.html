@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Pendente</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fce1e1, #f3f4f8); /* Gradiente suave */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffcc00; /* Amarelo para pendente */
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1s;
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #FF5733; /* Cor vibrante */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #C70039; /* Cor ao passar o mouse */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Pagamento Pendente!</h1>
+    <p>Seu pagamento está pendente. Verifique seu e-mail para mais informações.</p>
+    <p>Aguarde a confirmação e fique tranquilo, você será notificado assim que o pagamento for aprovado.</p>
+    <a href="/">Voltar para a Página Inicial</a> <!-- Link para voltar -->
+</body>
+</html>

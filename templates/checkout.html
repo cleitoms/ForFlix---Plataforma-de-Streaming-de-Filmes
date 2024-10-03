@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento com Forflix</title>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414; /* Fundo preto estilo Netflix */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: #ffffff;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 4rem; /* Aumentado para mais destaque */
+            animation: fadeIn 1s;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #e50914; /* Vermelho Netflix */
+            border-bottom: 4px solid #e50914; /* Borda mais espessa */
+            padding-bottom: 10px;
+            animation: slideIn 0.5s; /* Animação ao entrar */
+        }
+
+        .cta {
+            background: rgba(255, 255, 255, 0.1); /* Levemente opaco para suavizar */
+            padding: 50px; /* Aumentado para mais espaço */
+            border-radius: 30px; /* Bordas mais arredondadas */
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Tamanho máximo ajustado */
+        }
+
+        .cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: slideIn 0.5s;
+            max-width: 500px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #e50914; /* Vermelho Netflix */
+            color: #ffffff; /* Texto branco para contraste */
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-size: 22px; /* Aumentado para mais destaque */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            animation: buttonFadeIn 0.5s;
+            width: 100%;
+            font-weight: bold; /* Negrito para destacar mais */
+        }
+
+        button:hover {
+            background-color: #ff1f3d; /* Vermelho mais claro para hover */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        button:before {
+            content: "🎬"; /* Ícone do botão */
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #ffffff;
+            text-align: center;
+            max-width: 400px;
+            transition: transform 0.3s;
+        }
+
+        .footer:hover {
+            transform: translateY(-2px);
+        }
+
+        .cta h2 {
+            color: #ffffff; /* Cor branca para o subtítulo */
+            margin-bottom: 15px; /* Aumentado para mais espaço */
+            font-size: 2.5rem; /* Ajustado para mais destaque */
+            font-weight: bold;
+            animation: fadeIn 1.2s; /* Animação ao entrar */
+        }
+
+        .cta p {
+            color: #e50914; /* Vermelho Netflix para texto */
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .cta ul {
+            text-align: left;
+            margin: 10px auto;
+            padding: 0;
+            list-style: none;
+        }
+
+        .cta ul li {
+            margin: 5px 0;
+            font-weight: bold;
+            color: #e50914; /* Vermelho Netflix */
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .cta ul li:before {
+            content: '✔️';
+            position: absolute;
+            left: 0;
+            color: #FFD700; /* Ouro para itens da lista */
+            font-size: 18px;
+        }
+
+        .cta p strong {
+            color: #e50914; /* Vermelho Netflix */
+            font-size: 1.5rem;
+        }
+
+        .online-users {
+            font-size: 1.5rem; /* Aumentado para mais destaque */
+            margin-top: 15px;
+            color: #e50914; /* Cor chamativa para o contador */
+            font-weight: bold;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.5s; /* Animação ao entrar */
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            .cta,
+            form {
+                width: 100%;
+                box-shadow: none;
+            }
+
+            h1 {
+                font-size: 3rem; /* Ajustado para telas menores */
+            }
+
+            button {
+                font-size: 18px; /* Ajustado para telas menores */
+                padding: 12px 24px; /* Ajustado para telas menores */
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes buttonFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Forflix</h1>
+
+    <div class="cta">
+        <h2>Assista a Mais de 100 Filmes!</h2>
+        <p>Por apenas <strong>R$ 1,00</strong>, você terá acesso a uma biblioteca incrível de filmes com atualizações diárias.</p>
+        <p><strong>Atenção:</strong> O seu pagamento é válido apenas enquanto você estiver assistindo na página. Se você sair, será necessário realizar um novo pagamento para voltar a assistir.</p>
+        <ul>
+            <li>Novos lançamentos todos os dias!</li>
+            <li>Qualidade HD para sua diversão!</li>
+            <li>Assistir a qualquer momento, em qualquer lugar!</li>
+        </ul>
+        <div class="online-users" id="online-users">🌐 Atualmente, 123 usuários online!</div> <!-- Contador de usuários online -->
+    </div>
+
+    <form action="/checkout" method="POST">
+        <button type="submit" id="checkout-button">Comece Agora por R$ 1,00!</button>
+    </form>
+
+    <div class="footer">
+        <p>Não perca tempo! Venha aproveitar o melhor do cinema com Forflix.</p>
+    </div>
+
+    {% if preference_id %}
+    <script>
+        const mp = new MercadoPago('APP_USR-0bdb55b7-5ed3-4694-a01f-aade7ce5777f', { locale: 'pt-BR' }); // Substitua pela sua Public Key
+
+        mp.checkout({
+            preference: {
+                id: '{{ preference_id }}' // ID da preferência criada
+            },
+            autoOpen: true
+        });
+    </script>
+    {% endif %}
+
+    <script>
+        // Função para atualizar o contador de usuários online a cada 10 segundos
+        const onlineUsersElement = document.getElementById('online-users');
+        let userCount = 123; // Número inicial de usuários online
+
+        setInterval(() => {
+            // Simula uma alteração realista no número de usuários online
+            userCount += Math.floor(Math.random() * 5) - 2; // Pode aumentar ou diminuir até 2 usuários
+            if (userCount < 0) userCount = 0; // Garante que não fique negativo
+            onlineUsersElement.innerText = `🌐 Atualmente, ${userCount} usuários online!`;
+        }, 10000); // Atualiza a cada 10 segundos
+    </script>
+</body>
+
+</html>
